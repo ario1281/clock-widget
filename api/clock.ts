@@ -3,7 +3,7 @@ const width = 200;
 const height = 100;
 
 // 
-class BaseClock {
+export class BaseClock {
     m_time: Date;
     showDate: boolean;
 
@@ -33,7 +33,7 @@ class BaseClock {
 }
 
 // 'BaseClock' inherited class
-class DigitalClock extends BaseClock {
+export class DigitalClock extends BaseClock {
     render() {
         const hh = this.m_time.getHours().toString().padStart(2, '0');
         const mm = this.m_time.getMinutes().toString().padStart(2, '0');
@@ -51,7 +51,7 @@ class DigitalClock extends BaseClock {
     `;
     }
 }
-class AnalogClock extends BaseClock {
+export class AnalogClock extends BaseClock {
     smooth: boolean;
 
     constructor(showDate: boolean, smooth: boolean) {
@@ -92,7 +92,7 @@ class AnalogClock extends BaseClock {
 
     }
 }
-class BinaryClock extends BaseClock {
+export class BinaryClock extends BaseClock {
     private makeRow(bits: number[], y: number) {
         return bits
             .map((bit, i) => {
@@ -126,7 +126,7 @@ class BinaryClock extends BaseClock {
         ${this.makeRow(bits(Math.floor(mm / 10)), 100)}
         ${this.makeRow(bits(mm % 10), 130)}
 
-        ${this.showDate ? `<text x="100" y="148" font-size="14" fill="#ccc" text-anchor="middle">${this.formatDate()}</text>` : ""}
+        ${this.showDate ? `<text x="100" y="148" font-size="14" fill="#ccc" text-anchor="middle">${this.format_date()}</text>` : ""}
       </svg>
     `;
     }
