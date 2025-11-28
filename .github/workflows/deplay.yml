@@ -1,13 +1,13 @@
-name: Deploy to Deno Deploy
+name: Deno Deploy
 
 on:
   push:
     branches:
-      - main  # デプロイしたいブランチ
+      - main
 
 permissions:
-  id-token: write       # ← ここが必須
-  contents: read        # デフォルトでOK
+  id-token: write
+  contents: read
 jobs:
   deploy:
     runs-on: ubuntu-latest
