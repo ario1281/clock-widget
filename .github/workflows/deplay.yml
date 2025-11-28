@@ -26,4 +26,4 @@ jobs:
         with:
           project: ${{ secrets.DENO_DEPLOY_PROJECT }}
           token: ${{ secrets.DENO_DEPLOY_TOKEN }}
-          entrypoint: main.ts
+          entrypoint: server.ts
