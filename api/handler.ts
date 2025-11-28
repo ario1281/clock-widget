@@ -13,7 +13,7 @@ export function ApiHandler(searchParams: URLSearchParams): Response {
     const params = new CustomURLSearchParams(searchParams);
 
     const style = params.getString("style", "analog");
-    const showDate = params.getBoolean("show_date", false);
+    const showDate = params.getBoolean("date", false);
     const smooth = params.getBoolean("smooth", false);
 
     let clock = new BaseClock(false);
