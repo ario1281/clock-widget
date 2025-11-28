@@ -128,6 +128,10 @@ export class BinaryClock extends BaseClock {
         ${this.makeRow(bits(Math.floor(mm / 10)), 100)}
         ${this.makeRow(bits(mm % 10), 130)}
 
+        <!-- Second -->
+        ${this.makeRow(bits(Math.floor(ss / 10)), 160)}
+        ${this.makeRow(bits(ss % 10), 190)}
+
         ${this.showDate ? `<text x="100" y="148" font-size="14" fill="#ccc" text-anchor="middle">${this.format_date()}</text>` : ""}
       </svg>
     `;
