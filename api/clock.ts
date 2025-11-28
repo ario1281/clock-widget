@@ -43,7 +43,7 @@ export class DigitalClock extends BaseClock {
         const time = `${hh}:${mm}:${ss}`;
 
         return `
-        <svg xmlns="${xmlns}" width="${width}" height="${height}">
+        <svg xmlns="${xmlns}" width="${width}">
             <rect width="100%" height="100%" fill="#ififif"/>
         <text x="50%" y="50%" font-size="30" fill="#00ffea" text-anchor="middle" dominant-baseline="middle">
           ${time}
@@ -81,7 +81,7 @@ export class AnalogClock extends BaseClock {
         const hourAngle = this.smooth ? (hh % 12 * 30 + mm * 0.5) : (hh % 12 * 30);
 
         return `
-      <svg xmlns="${xmlns}" width="${width}" height="${height}">
+      <svg xmlns="${xmlns}" width="${width}">
         <circle cx="${cx}" cy="${cy}" r="${r}" stroke="#333" stroke-width="4" fill="#1f1f1f"/>
 
         ${this.hand(cx, cy, hourAngle, r * 0.5, 6)}
@@ -117,7 +117,7 @@ export class BinaryClock extends BaseClock {
         ];
 
         return `
-      <svg xmlns="${xmlns}" width="${width}" height="${height}">
+      <svg xmlns="${xmlns}" width="${width}">
         <rect width="100%" height="100%" fill="#1f1f1f"/>
 
         <!-- Hour -->
