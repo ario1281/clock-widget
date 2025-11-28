@@ -81,7 +81,7 @@ export class AnalogClock extends BaseClock {
         const hourAngle = this.smooth ? (hh % 12 * 30 + mm * 0.5) : (hh % 12 * 30);
 
         return `
-      <svg xmlns="${xmlns}" width="200" height="100">
+      <svg xmlns="${xmlns}" width="200" height="200">
         <circle cx="${cx}" cy="${cy}" r="${r}" stroke="#333" stroke-width="4" fill="#1f1f1f"/>
 
         ${this.hand(cx, cy, hourAngle, r * 0.5, 6)}
