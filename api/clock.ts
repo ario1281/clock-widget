@@ -95,9 +95,7 @@ export class AnalogClock extends BaseClock {
     }
 }
 export class BinaryClock extends BaseClock {
-    private makeDigit(bits: number[], st_x: number, st_y: number, cols: number) {
-        const size = 10;
-        const gap = 5;
+    private makeDigit(bits: number[], st_x: number, st_y: number, cols: number, size: number, gap: number) {
         return bits
             .map((bit, i) => {
                 const color = bit === 1 ? "#00ffea" : "#444";
@@ -120,27 +118,32 @@ export class BinaryClock extends BaseClock {
             (n & 1) ? 1 : 0
         ];
 
+        const width = 200;
+        const height = 150;
+        const size = 10;          // 円の半径
+        const gap = 5;            // 円の間隔
+        const cols = 2;           // 1桁の横列
+        const digitWidth = cols * (size * 2 + gap);
+        const gapBetweenDigits = 10; // 桁間スペース
         const yStart = 20;
-        const digitWidth = 2 * (10 * 2 + 5); // 1桁の幅
-        const gapBetweenDigits = 20; // 桁間のスペース
 
         return `
-            <svg xmlns="${xmlns}" width="500" height="100">
+            <svg xmlns="${xmlns}" width="${width}" height="${height}">
                 <rect width="100%" height="100%" fill="#1f1f1f"/>
 
                 <!-- Hour -->
-                ${this.makeDigit(bits(Math.floor(hh / 10)), 10, yStart, 2)}
-                ${this.makeDigit(bits(hh % 10), 10 + digitWidth + gapBetweenDigits, yStart, 2)}
+                ${this.makeDigit(bits(Math.floor(hh / 10)), 10, yStart, cols, size, gap)}
+                ${this.makeDigit(bits(hh % 10), 10 + digitWidth + gapBetweenDigits, yStart, cols, size, gap)}
 
                 <!-- Minute -->
-                ${this.makeDigit(bits(Math.floor(mm / 10)), 10 + 2 * (digitWidth + gapBetweenDigits), yStart, 2)}
-                ${this.makeDigit(bits(mm % 10), 10 + 3 * (digitWidth + gapBetweenDigits), yStart, 2)}
+                ${this.makeDigit(bits(Math.floor(mm / 10)), 10 + 2 * (digitWidth + gapBetweenDigits), yStart, cols, size, gap)}
+                ${this.makeDigit(bits(mm % 10), 10 + 3 * (digitWidth + gapBetweenDigits), yStart, cols, size, gap)}
 
                 <!-- Second -->
-                ${this.makeDigit(bits(Math.floor(ss / 10)), 10 + 4 * (digitWidth + gapBetweenDigits), yStart, 2)}
-                ${this.makeDigit(bits(ss % 10), 10 + 5 * (digitWidth + gapBetweenDigits), yStart, 2)}
+                ${this.makeDigit(bits(Math.floor(ss / 10)), 10 + 4 * (digitWidth + gapBetweenDigits), yStart, cols, size, gap)}
+                ${this.makeDigit(bits(ss % 10), 10 + 5 * (digitWidth + gapBetweenDigits), yStart, cols, size, gap)}
 
-                ${this.showDate ? `<text x="250" y="90" font-size="14" fill="#ccc" text-anchor="middle">${this.format_date()}</text>` : ""}
+                ${this.showDate ? `<text x="${width / 2}" y="${height - 10}" font-size="12" fill="#ccc" text-anchor="middle">${this.format_date()}</text>` : ""}
             </svg>
         `;
     }
