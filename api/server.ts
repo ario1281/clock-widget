@@ -1,6 +1,6 @@
 
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import { BaseClock, DigitalClock, AnalogClock, BinaryClock } from './clock';
+import { BaseClock, DigitalClock, AnalogClock, BinaryClock } from './clock.ts';
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
     const type = (req.query.type as string) || "analog";
