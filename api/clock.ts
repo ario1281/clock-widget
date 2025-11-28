@@ -43,7 +43,7 @@ export class DigitalClock extends BaseClock {
         const time = `${hh}:${mm}:${ss}`;
 
         return `
-        <svg xmlns="${xmlns}" width="200" height="200">
+        <svg xmlns="${xmlns}" width="200" height="100">
             <rect width="100%" height="100%" fill="#ififif"/>
         <text x="50%" y="50%" font-size="30" fill="#00ffea" text-anchor="middle" dominant-baseline="middle">
           ${time}
@@ -95,15 +95,14 @@ export class AnalogClock extends BaseClock {
     }
 }
 export class BinaryClock extends BaseClock {
-    // bits: 1桁を4ビットで表現
     private makeDigit(bits: number[], st_x: number, st_y: number) {
         const size = 10; // 円の半径
-        const gap = 5;   // 円の間隔
+        const gap = 5;   // 円同士の間隔
         return bits
             .map((bit, i) => {
                 const color = bit === 1 ? "#00ffea" : "#444";
-                const x = st_x + (i % 6) * (size * 2 + gap); // 横6列
-                const y = st_y + Math.floor(i / 6) * (size * 2 + gap); // 縦4行
+                const x = st_x + (i % 8) * (size * 2 + gap); // 横8列
+                const y = st_y + Math.floor(i / 8) * (size * 2 + gap); // 縦4行
                 return `<circle cx="${x}" cy="${y}" r="${size}" fill="${color}" />`;
             })
             .join("");
@@ -119,7 +118,7 @@ export class BinaryClock extends BaseClock {
             (n & 4) ? 1 : 0,
             (n & 2) ? 1 : 0,
             (n & 1) ? 1 : 0,
-            0, 0   // 横6列にするための空白ビット
+            0, 0, 0, 0
         ];
 
         const st_y  = 20;
