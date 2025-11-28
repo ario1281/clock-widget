@@ -1,4 +1,3 @@
-import { VercelRequest, VercelResponse } from "@vercel/node";
 
 const xmlns = "http://www.w3.org/2000/svg";
 const width = 200;
@@ -6,6 +5,7 @@ const height = 100;
 
 // 
 export class BaseClock {
+
     m_time: Date;
     showDate: boolean;
 
@@ -132,29 +132,4 @@ export class BinaryClock extends BaseClock {
       </svg>
     `;
     }
-}
-
-export default function handler(req: VercelRequest, res: VercelResponse) {
-    const type = (req.query.type as string) || "analog";
-    const showDate = req.query.date === "true";
-    const smooth = req.query.smooth === "true";
-
-    let clock = new BaseClock(false);
-    if (type === "digital") {
-        clock = new DigitalClock(showDate);
-    }
-    if (type === "binary") {
-        clock = new BinaryClock(showDate);
-    }
-    if (type === "analog") {
-        clock = new AnalogClock(showDate, smooth);
-    }
-
-    const svg = clock.render();
-
-    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    res.setHeader("Pragma", "no-cache");
-    res.setHeader("Expires", "0");
-
-    res.status(200).send(svg);
 }

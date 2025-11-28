@@ -1,8 +1,0 @@
-{
-  "name": "clock-widget",
-  "version": "1.0.0",
-  "type": "module",
-  "devDependencies": {
-    "@vercel/node": "^5.5.13"
-  }
-}
