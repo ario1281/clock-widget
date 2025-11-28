@@ -95,11 +95,16 @@ export class AnalogClock extends BaseClock {
     }
 }
 export class BinaryClock extends BaseClock {
-    private makeRow(bits: number[], x: number, y: number) {
+    // bits: 1桁を4ビットで表現
+    private makeDigit(bits: number[], st_x: number, st_y: number) {
+        const size = 10; // 円の半径
+        const gap = 5;   // 円の間隔
         return bits
             .map((bit, i) => {
                 const color = bit === 1 ? "#00ffea" : "#444";
-                return `<circle cx="${x + i * 25}" cy="${y}" r="10" fill="${color}" />`;
+                const x = st_x + (i % 6) * (size * 2 + gap); // 横6列
+                const y = st_y + Math.floor(i / 6) * (size * 2 + gap); // 縦4行
+                return `<circle cx="${x}" cy="${y}" r="${size}" fill="${color}" />`;
             })
             .join("");
     }
@@ -114,27 +119,29 @@ export class BinaryClock extends BaseClock {
             (n & 4) ? 1 : 0,
             (n & 2) ? 1 : 0,
             (n & 1) ? 1 : 0,
+            0, 0   // 横6列にするための空白ビット
         ];
 
-        const y = 50;
+        const st_y  = 20;
+        const gap_x = 60;
 
         return `
-      <svg xmlns="${xmlns}" width="${width}">
+      <svg xmlns="${xmlns}" width="500" height="100">
         <rect width="100%" height="100%" fill="#1f1f1f"/>
 
         <!-- Hour -->
-        ${this.makeRow(bits(Math.floor(hh / 10)), 10, y)}
-        ${this.makeRow(bits(hh % 10), 10 + 4 * 25 + 10, y)}
+        ${this.makeDigit(bits(Math.floor(hh / 10)), 10, st_y)}
+        ${this.makeDigit(bits(hh % 10), 10 + gap_x, st_y)}
 
         <!-- Minute -->
-        ${this.makeRow(bits(Math.floor(mm / 10)), 10 + 8 * 25 + 20, y)}
-        ${this.makeRow(bits(mm % 10), 10 + 12 * 25 + 20, y)}
+        ${this.makeDigit(bits(Math.floor(mm / 10)), 10 + gap_x * 2, st_y)}
+        ${this.makeDigit(bits(mm % 10), 10 + gap_x * 3, st_y)}
 
         <!-- Second -->
-        ${this.makeRow(bits(Math.floor(ss / 10)), 10 + 16 * 25 + 30, y)}
-        ${this.makeRow(bits(ss % 10), 10 + 20 * 25 + 30, y)}
+        ${this.makeDigit(bits(Math.floor(ss / 10)), 10 + gap_x * 4, st_y)}
+        ${this.makeDigit(bits(ss % 10), 10 + gap_x * 5, st_y)}
 
-        ${this.showDate ? `<text x="100" y="148" font-size="14" fill="#ccc" text-anchor="middle">${this.format_date()}</text>` : ""}
+        ${this.showDate ? `<text x="250" y="90" font-size="14" fill="#ccc" text-anchor="middle">${this.format_date()}</text>` : ""}
       </svg>
     `;
     }
