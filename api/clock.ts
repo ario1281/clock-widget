@@ -152,7 +152,9 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
 
     const svg = clock.render();
 
-    res.setHeader("Content-Type", "image/svg+xml");
-    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Expires", "0");
+
     res.status(200).send(svg);
 }
