@@ -122,10 +122,10 @@ export class BinaryClock extends BaseClock {
         ];
 
         const st_y  = 20;
-        const gap_x = 60;
+        const gap_x = 100;
 
         return `
-      <svg xmlns="${xmlns}" width="500" height="100">
+      <svg xmlns="${xmlns}" width="800" height="80">
         <rect width="100%" height="100%" fill="#1f1f1f"/>
 
         <!-- Hour -->
