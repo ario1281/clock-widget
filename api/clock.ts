@@ -95,11 +95,11 @@ export class AnalogClock extends BaseClock {
     }
 }
 export class BinaryClock extends BaseClock {
-    private makeRow(bits: number[], y: number) {
+    private makeRow(bits: number[], x: number, y: number) {
         return bits
             .map((bit, i) => {
                 const color = bit === 1 ? "#00ffea" : "#444";
-                return `<circle cx="${30 + i * 25}" cy="${y}" r="10" fill="${color}" />`;
+                return `<circle cx="${x + i * 25}" cy="${y}" r="10" fill="${color}" />`;
             })
             .join("");
     }
@@ -116,21 +116,23 @@ export class BinaryClock extends BaseClock {
             (n & 1) ? 1 : 0,
         ];
 
+        const y = 50;
+
         return `
       <svg xmlns="${xmlns}" width="${width}">
         <rect width="100%" height="100%" fill="#1f1f1f"/>
 
         <!-- Hour -->
-        ${this.makeRow(bits(Math.floor(hh / 10)), 40)}
-        ${this.makeRow(bits(hh % 10), 70)}
+        ${this.makeRow(bits(Math.floor(hh / 10)), 10, y)}
+        ${this.makeRow(bits(hh % 10), 10 + 4 * 25 + 10, y)}
 
         <!-- Minute -->
-        ${this.makeRow(bits(Math.floor(mm / 10)), 100)}
-        ${this.makeRow(bits(mm % 10), 130)}
+        ${this.makeRow(bits(Math.floor(mm / 10)), 10 + 8 * 25 + 20, y)}
+        ${this.makeRow(bits(mm % 10), 10 + 12 * 25 + 20, y)}
 
         <!-- Second -->
-        ${this.makeRow(bits(Math.floor(ss / 10)), 160)}
-        ${this.makeRow(bits(ss % 10), 190)}
+        ${this.makeRow(bits(Math.floor(ss / 10)), 10 + 16 * 25 + 30, y)}
+        ${this.makeRow(bits(ss % 10), 10 + 20 * 25 + 30, y)}
 
         ${this.showDate ? `<text x="100" y="148" font-size="14" fill="#ccc" text-anchor="middle">${this.format_date()}</text>` : ""}
       </svg>
