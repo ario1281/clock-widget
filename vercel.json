@@ -1,6 +1,8 @@
 {
-  "version": 2,
-  "routes": [
-    { "src": "/api", "dest": "/api/clock.ts" }
+  "redirects": [
+    {
+      "source": "/api",
+      "destination": "https://clock-widget.deno.dev/api"
+    }
   ]
 }
