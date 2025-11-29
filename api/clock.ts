@@ -132,55 +132,57 @@ export class BinaryClock extends BaseClock {
         const HH  = this.m_time.getHours();
 
         return `
-            <svg width="320" height="150" viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg">
-                <rect width="100%" height="100%" fill="#1f1f1f"/>
+            <svg width="200" height="120" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100%" height="100%" fill="#ififif" />
                 <defs>
-                    <circle id="dot" r="8" fill="#00ffea"/>
+                    <circle id="dot" r="8" fill="#00ffea" />
                 </defs>
 
-                <!-- 時 十の位 -->
-                <g transform="translate(10,10)">
-                    <use href="#dot" x="0" y="0"><animate attributeName="fill-opacity" values="1;0" dur="10s" repeatCount="indefinite"/></use>
-                    <use href="#dot" x="0" y="20"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="2.5s"/></use>
-                    <use href="#dot" x="0" y="40"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="5s"/></use>
-                    <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="7.5s"/></use>
-                </g>
-                <!-- 時 一の位 -->
-                <g transform="translate(30,10)">
-                    <use href="#dot" x="0" y="0"><animate attributeName="fill-opacity" values="1;0" dur="10s" repeatCount="indefinite"/></use>
-                    <use href="#dot" x="0" y="20"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="2.5s"/></use>
-                    <use href="#dot" x="0" y="40"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="5s"/></use>
-                    <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="7.5s"/></use>
-                </g>
+                <g transform="translate(20,5)">
+                    <!-- 時 十の位 -->
+                    <g transform="translate(20,10)">
+                        <use href="#dot" x="0" y="0"><animate attributeName="fill-opacity" values="1;0" dur="10s" repeatCount="indefinite" /></use>
+                        <use href="#dot" x="0" y="20"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="2.5s" /></use>
+                        <use href="#dot" x="0" y="40"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="5s" /></use>
+                        <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="7.5s" /></use>
+                    </g>
+                    <!-- 時 一の位 -->
+                    <g transform="translate(40,10)">
+                        <use href="#dot" x="0" y="0"><animate attributeName="fill-opacity" values="1;0" dur="10s" repeatCount="indefinite" /></use>
+                        <use href="#dot" x="0" y="20"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="2.5s" /></use>
+                        <use href="#dot" x="0" y="40"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="5s" /></use>
+                        <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="7.5s" /></use>
+                    </g>
 
-                <!-- 分 十の位 -->
-                <g transform="translate(60,10)">
-                    <use href="#dot" x="0" y="0"><animate attributeName="fill-opacity" values="1;0" dur="10s" repeatCount="indefinite"/></use>
-                    <use href="#dot" x="0" y="20"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="2.5s"/></use>
-                    <use href="#dot" x="0" y="40"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="5s"/></use>
-                    <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="7.5s"/></use>
-                </g>
-                <!-- 分 一の位 -->
-                <g transform="translate(80,10)">
-                    <use href="#dot" x="0" y="0"><animate attributeName="fill-opacity" values="1;0" dur="10s" repeatCount="indefinite"/></use>
-                    <use href="#dot" x="0" y="20"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="2.5s"/></use>
-                    <use href="#dot" x="0" y="40"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="5s"/></use>
-                    <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="7.5s"/></use>
-                </g>
+                    <!-- 分 十の位 -->
+                    <g transform="translate(70,10)">
+                        <use href="#dot" x="0" y="0"><animate attributeName="fill-opacity" values="1;0" dur="10s" repeatCount="indefinite" /></use>
+                        <use href="#dot" x="0" y="20"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="2.5s" /></use>
+                        <use href="#dot" x="0" y="40"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="5s" /></use>
+                        <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="7.5s" /></use>
+                    </g>
+                    <!-- 分 一の位 -->
+                    <g transform="translate(90,10)">
+                        <use href="#dot" x="0" y="0"><animate attributeName="fill-opacity" values="1;0" dur="10s" repeatCount="indefinite" /></use>
+                        <use href="#dot" x="0" y="20"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="2.5s" /></use>
+                        <use href="#dot" x="0" y="40"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="5s" /></use>
+                        <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="7.5s" /></use>
+                    </g>
 
-                <!-- 秒 十の位 -->
-                <g transform="translate(110,10)">
-                    <use href="#dot" x="0" y="0"><animate attributeName="fill-opacity" values="1;0" dur="10s" repeatCount="indefinite"/></use>
-                    <use href="#dot" x="0" y="20"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="2.5s"/></use>
-                    <use href="#dot" x="0" y="40"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="5s"/></use>
-                    <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="7.5s"/></use>
-                </g>
-                <!-- 秒 一の位 -->
-                <g transform="translate(130,10)">
-                    <use href="#dot" x="0" y="0"><animate attributeName="fill-opacity" values="1;0" dur="1s" repeatCount="indefinite"/></use>
-                    <use href="#dot" x="0" y="20"><animate attributeName="fill-opacity" values="0;1" dur="1s" repeatCount="indefinite" begin="0.25s"/></use>
-                    <use href="#dot" x="0" y="40"><animate attributeName="fill-opacity" values="0;1" dur="1s" repeatCount="indefinite" begin="0.5s"/></use>
-                    <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="1s" repeatCount="indefinite" begin="0.75s"/></use>
+                    <!-- 秒 十の位 -->
+                    <g transform="translate(120,10)">
+                    <use href="#dot" x="0" y="0"><animate attributeName="fill-opacity" values="1;0" dur="10s" repeatCount="indefinite" /></use>
+                    <use href="#dot" x="0" y="20"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="2.5s" /></use>
+                    <use href="#dot" x="0" y="40"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="5s" /></use>
+                    <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="7.5s" /></use>
+                    </g>
+                    <!-- 秒 一の位 -->
+                    <g transform="translate(140,10)">
+                        <use href="#dot" x="0" y="0"><animate attributeName="fill-opacity" values="1;0" dur="10s" repeatCount="indefinite" /></use>
+                        <use href="#dot" x="0" y="20"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="2.5s" /></use>
+                        <use href="#dot" x="0" y="40"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="5s" /></use>
+                        <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="7.5s" /></use>
+                    </g>
                 </g>
             </svg>
         `;
