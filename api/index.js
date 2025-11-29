@@ -1,9 +1,9 @@
 import Fastify from "fastify";
 import { AnalogClock, BaseClock, BinaryClock, DigitalClock } from "./clock.js";
 
-const fastify = Fastify();
+const app = Fastify();
 
-fastify.setNotFoundHandler((req, reply) => {
+app.setNotFoundHandler((req, reply) => {
     reply.status(404).send({ message: "Not Found" });
 });
 
