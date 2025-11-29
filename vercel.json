@@ -2,6 +2,6 @@
   "version": 2,
   "routes": [
     { "src": "/", "status": 308, "headers": { "Location": "/api" } },
-    { "src": "/api", "dest": "/api/index.ts" }
+    { "src": "/api", "dest": "/api/index.js" }
   ]
 }
