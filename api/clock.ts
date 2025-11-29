@@ -60,130 +60,128 @@ export class AnalogClock extends BaseClock {
         this.smooth = smooth;
     }
 
-    private hand(cx: number, cy: number, angle: number, length: number, width: number, color = "#fff") {
-        const radius = (angle - 90) * (Math.PI / 180);
-        const x2 = cx + length * Math.cos(radius);
-        const y2 = cy + length * Math.sin(radius);
-        return `<line x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="${width}" stroke-linecap="round"/>`;
-    }
-
     render() {
         const height = width;
 
-        const r = 80;
-        const cx = 100, cy = 100;
-
         const fff = this.m_time.getMilliseconds();
-        const ss = this.m_time.getSeconds();
-        const mm = this.m_time.getMinutes();
-        const HH = this.m_time.getHours();
+        const ss  = this.m_time.getSeconds();
+        const mm  = this.m_time.getMinutes();
+        const HH  = this.m_time.getHours();
 
         return `
-        <svg xmlns="${xmlns}" width="${width}" height="${height}">
-            <circle cx="100" cy="100" r="95" fill="#fdfdfd" stroke="#333" stroke-width="4"/>
-            <g stroke="#333" stroke-width="3">
-                <g id="tick"><line x1="100" y1="10" x2="100" y2="25"/></g>
-                <use href="#tick" transform="rotate(30 100 100)" />
-                <use href="#tick" transform="rotate(60 100 100)" />
-                <use href="#tick" transform="rotate(90 100 100)" />
-                <use href="#tick" transform="rotate(120 100 100)" />
-                <use href="#tick" transform="rotate(150 100 100)" />
-                <use href="#tick" transform="rotate(180 100 100)" />
-                <use href="#tick" transform="rotate(210 100 100)" />
-                <use href="#tick" transform="rotate(240 100 100)" />
-                <use href="#tick" transform="rotate(270 100 100)" />
-                <use href="#tick" transform="rotate(300 100 100)" />
-                <use href="#tick" transform="rotate(330 100 100)" />
-            </g>
+            <svg xmlns="${xmlns}" width="${width}" height="${height}">
+                <circle cx="100" cy="100" r="95" fill="#fdfdfd" stroke="#333" stroke-width="4"/>
+                <g stroke="#333" stroke-width="3">
+                    <g id="tick"><line x1="100" y1="10" x2="100" y2="25"/></g>
+                    <use href="#tick" transform="rotate(30 100 100)" />
+                    <use href="#tick" transform="rotate(60 100 100)" />
+                    <use href="#tick" transform="rotate(90 100 100)" />
+                    <use href="#tick" transform="rotate(120 100 100)" />
+                    <use href="#tick" transform="rotate(150 100 100)" />
+                    <use href="#tick" transform="rotate(180 100 100)" />
+                    <use href="#tick" transform="rotate(210 100 100)" />
+                    <use href="#tick" transform="rotate(240 100 100)" />
+                    <use href="#tick" transform="rotate(270 100 100)" />
+                    <use href="#tick" transform="rotate(300 100 100)" />
+                    <use href="#tick" transform="rotate(330 100 100)" />
+                </g>
 
-            <!-- Hour Hand -->
-            <line x1="100" y1="100" x2="100" y2="55"
-                    stroke="#000" stroke-width="6" stroke-linecap="round">
-                <animateTransform attributeName="transform"
-                type="rotate"
-                from="${HH} 100 100"
-                to="${HH + 360} 100 100"
-                dur="43200s"
-                repeatCount="indefinite"/>
-            </line>
+                <!-- Hour Hand -->
+                <line x1="100" y1="100" x2="100" y2="55"
+                        stroke="#000" stroke-width="6" stroke-linecap="round">
+                    <animateTransform attributeName="transform"
+                    type="rotate"
+                    from="${HH} 100 100"
+                    to="${HH + 360} 100 100"
+                    dur="43200s"
+                    repeatCount="indefinite"/>
+                </line>
 
-            <!-- Minute Hand -->
-            <line x1="100" y1="100" x2="100" y2="35"
-                    stroke="#000" stroke-width="4" stroke-linecap="round">
-                <animateTransform attributeName="transform"
-                type="rotate"
-                from="${mm} 100 100"
-                to="${mm + 360} 100 100"
-                dur="3600s"
-                repeatCount="indefinite"/>
-            </line>
+                <!-- Minute Hand -->
+                <line x1="100" y1="100" x2="100" y2="35"
+                        stroke="#000" stroke-width="4" stroke-linecap="round">
+                    <animateTransform attributeName="transform"
+                    type="rotate"
+                    from="${mm} 100 100"
+                    to="${mm + 360} 100 100"
+                    dur="3600s"
+                    repeatCount="indefinite"/>
+                </line>
 
-            <!-- Second Hand -->
-            <line x1="100" y1="100" x2="100" y2="25"
-                    stroke="red" stroke-width="2" stroke-linecap="round">
-                <animateTransform attributeName="transform"
-                type="rotate"
-                from="${ss} 100 100"
-                to="${ss + 360} 100 100"
-                dur="60s"
-                repeatCount="indefinite"/>
-            </line>
+                <!-- Second Hand -->
+                <line x1="100" y1="100" x2="100" y2="25"
+                        stroke="red" stroke-width="2" stroke-linecap="round">
+                    <animateTransform attributeName="transform"
+                    type="rotate"
+                    from="${ss} 100 100"
+                    to="${ss + 360} 100 100"
+                    dur="60s"
+                    repeatCount="indefinite"/>
+                </line>
 
-            <circle cx="100" cy="100" r="5" fill="#000"/>
-        </svg>
+                <circle cx="100" cy="100" r="5" fill="#000"/>
+            </svg>
         `;
     }
 }
 export class BinaryClock extends BaseClock {
-    private makeDigit(bits: number[], st_x: number, st_y: number, cols: number, size: number, gap: number) {
-        return bits
-            .map((bit, i) => {
-                const color = bit === 1 ? "#00ffea" : "#444";
-                const x = st_x + (i % cols) * (size * 2 + gap);
-                const y = st_y + Math.floor(i / cols) * (size * 2 + gap);
-                return `<circle cx="${x}" cy="${y}" r="${size}" fill="${color}" />`;
-            })
-            .join("");
-    }
-
     render() {
-        const hh = this.m_time.getHours();
-        const mm = this.m_time.getMinutes();
-        const ss = this.m_time.getSeconds();
-
-        const bits = (n: number) => [
-            (n & 8) ? 1 : 0,
-            (n & 4) ? 1 : 0,
-            (n & 2) ? 1 : 0,
-            (n & 1) ? 1 : 0
-        ];
-
-        const width = 200;
-        const height = 150;
-        const size = 10;          // 円の半径
-        const gap = 5;            // 円の間隔
-        const cols = 2;           // 1桁の横列
-        const digitWidth = cols * (size * 2 + gap);
-        const gapBetweenDigits = 10; // 桁間スペース
-        const yStart = 20;
+        const fff = this.m_time.getMilliseconds();
+        const ss  = this.m_time.getSeconds();
+        const mm  = this.m_time.getMinutes();
+        const HH  = this.m_time.getHours();
 
         return `
-            <svg xmlns="${xmlns}" width="${width}" height="${height}">
+            <svg width="320" height="150" viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg">
                 <rect width="100%" height="100%" fill="#1f1f1f"/>
+                <defs>
+                    <circle id="dot" r="8" fill="#00ffea"/>
+                </defs>
 
-                <!-- Hour -->
-                ${this.makeDigit(bits(Math.floor(hh / 10)), 10, yStart, cols, size, gap)}
-                ${this.makeDigit(bits(hh % 10), 10 + digitWidth + gapBetweenDigits, yStart, cols, size, gap)}
+                <!-- 時 十の位 -->
+                <g transform="translate(10,10)">
+                    <use href="#dot" x="0" y="0"><animate attributeName="fill-opacity" values="1;0" dur="10s" repeatCount="indefinite"/></use>
+                    <use href="#dot" x="0" y="20"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="2.5s"/></use>
+                    <use href="#dot" x="0" y="40"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="5s"/></use>
+                    <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="7.5s"/></use>
+                </g>
+                <!-- 時 一の位 -->
+                <g transform="translate(30,10)">
+                    <use href="#dot" x="0" y="0"><animate attributeName="fill-opacity" values="1;0" dur="10s" repeatCount="indefinite"/></use>
+                    <use href="#dot" x="0" y="20"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="2.5s"/></use>
+                    <use href="#dot" x="0" y="40"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="5s"/></use>
+                    <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="7.5s"/></use>
+                </g>
 
-                <!-- Minute -->
-                ${this.makeDigit(bits(Math.floor(mm / 10)), 10 + 2 * (digitWidth + gapBetweenDigits), yStart, cols, size, gap)}
-                ${this.makeDigit(bits(mm % 10), 10 + 3 * (digitWidth + gapBetweenDigits), yStart, cols, size, gap)}
+                <!-- 分 十の位 -->
+                <g transform="translate(60,10)">
+                    <use href="#dot" x="0" y="0"><animate attributeName="fill-opacity" values="1;0" dur="10s" repeatCount="indefinite"/></use>
+                    <use href="#dot" x="0" y="20"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="2.5s"/></use>
+                    <use href="#dot" x="0" y="40"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="5s"/></use>
+                    <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="7.5s"/></use>
+                </g>
+                <!-- 分 一の位 -->
+                <g transform="translate(80,10)">
+                    <use href="#dot" x="0" y="0"><animate attributeName="fill-opacity" values="1;0" dur="10s" repeatCount="indefinite"/></use>
+                    <use href="#dot" x="0" y="20"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="2.5s"/></use>
+                    <use href="#dot" x="0" y="40"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="5s"/></use>
+                    <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="7.5s"/></use>
+                </g>
 
-                <!-- Second -->
-                ${this.makeDigit(bits(Math.floor(ss / 10)), 10 + 4 * (digitWidth + gapBetweenDigits), yStart, cols, size, gap)}
-                ${this.makeDigit(bits(ss % 10), 10 + 5 * (digitWidth + gapBetweenDigits), yStart, cols, size, gap)}
-
-                ${this.showDate ? `<text x="${width / 2}" y="${height - 10}" font-size="12" fill="#ccc" text-anchor="middle">${this.format_date()}</text>` : ""}
+                <!-- 秒 十の位 -->
+                <g transform="translate(110,10)">
+                    <use href="#dot" x="0" y="0"><animate attributeName="fill-opacity" values="1;0" dur="10s" repeatCount="indefinite"/></use>
+                    <use href="#dot" x="0" y="20"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="2.5s"/></use>
+                    <use href="#dot" x="0" y="40"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="5s"/></use>
+                    <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="7.5s"/></use>
+                </g>
+                <!-- 秒 一の位 -->
+                <g transform="translate(130,10)">
+                    <use href="#dot" x="0" y="0"><animate attributeName="fill-opacity" values="1;0" dur="1s" repeatCount="indefinite"/></use>
+                    <use href="#dot" x="0" y="20"><animate attributeName="fill-opacity" values="0;1" dur="1s" repeatCount="indefinite" begin="0.25s"/></use>
+                    <use href="#dot" x="0" y="40"><animate attributeName="fill-opacity" values="0;1" dur="1s" repeatCount="indefinite" begin="0.5s"/></use>
+                    <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="1s" repeatCount="indefinite" begin="0.75s"/></use>
+                </g>
             </svg>
         `;
     }
