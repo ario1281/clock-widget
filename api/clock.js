@@ -1,14 +1,10 @@
-
+// BaseClock class and its inherited classes
 const xmlns = "http://www.w3.org/2000/svg";
 const width = 200;
 
 // 
 export class BaseClock {
-
-    m_time: Date;
-    showDate: boolean;
-
-    constructor(showDate: boolean) {
+    constructor(showDate) {
         this.m_time = new Date();
         this.showDate = showDate;
     }
@@ -24,13 +20,13 @@ export class BaseClock {
 
     format_date() {
         const yyyy = this.year().toString();
-        const mm = this.month().toString().padStart(2, '0');
-        const dd = this.date().toString().padStart(2, '0');
+        const mm   = this.month().toString().padStart(2, '0');
+        const dd   = this.date().toString().padStart(2, '0');
 
         return `${yyyy}年 ${mm}月 ${dd}日`;
     }
 
-    render(): string { return ""; };
+    render() { return ""; };
 }
 
 // 'BaseClock' inherited class
@@ -53,9 +49,7 @@ export class DigitalClock extends BaseClock {
     }
 }
 export class AnalogClock extends BaseClock {
-    smooth: boolean;
-
-    constructor(showDate: boolean, smooth: boolean) {
+    constructor(showDate, smooth) {
         super(showDate);
         this.smooth = smooth;
     }
