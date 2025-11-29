@@ -177,7 +177,7 @@ export class BinaryClock extends BaseClock {
                         <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="7.5s" /></use>
                     </g>
                 </g>
-                ${this.showDate ? `<text x="50%" y="85%" font-size="14" fill="#ccc" text-anchor="middle">${this.format_date()}</text>` : ""}
+                ${this.showDate ? `<text x="50%" y="90%" font-size="14" fill="#ccc" text-anchor="middle">${this.format_date()}</text>` : ""}
             </svg>
         `;
     }
