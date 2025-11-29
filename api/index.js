@@ -5,7 +5,7 @@ export default function handler(req, res) {
     const query = req.query || {};
     // Set default values
     const style    = query.style || "analog";
-    const showDate = query.showDate === "true";
+    const showDate = query.date === "true";
     const smooth   = query.smooth === "true";
 
     let clock = new BaseClock(false);
