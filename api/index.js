@@ -1,6 +1,6 @@
 import { AnalogClock, BaseClock, BinaryClock, DigitalClock } from "./clock.js";
 
-export default async function handler(req, res) {
+export default function handler(req, res) {
     // Parse query parameters
     const query = req.query || {};
     // Set default values

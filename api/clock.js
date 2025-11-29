@@ -26,7 +26,9 @@ export class BaseClock {
         return `${yyyy}年 ${mm}月 ${dd}日`;
     }
 
-    render() { return ""; };
+    render() {
+        return `<svg><text x="10" y="20">Base Clock ${this.format_date()}</text></svg>`;
+    };
 }
 
 // 'BaseClock' inherited class

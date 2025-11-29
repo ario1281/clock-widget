@@ -2,13 +2,13 @@
   "name": "clock-widget",
   "version": "1.0.0",
   "type": "module",
-  "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "node server.js",
+    "local": "node server.js", 
     "start": "vercel dev"
   },
   "dependencies": {
-    "fastify": "^4.29.1"
+    "fastify": "^4.10.0",
+    "@vercel/node": "*"
   }
 }

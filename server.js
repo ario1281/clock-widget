@@ -3,7 +3,7 @@ import { AnalogClock, BaseClock, BinaryClock, DigitalClock } from "./api/clock.j
 
 const app = Fastify();
 
-app.get("/clock", async (req, reply) => {
+app.get("/api", async (req, reply) => {
     const { style = "analog", showDate = "false", smooth = "false" } = req.query;
 
     let clock = new BaseClock(false);
@@ -24,5 +24,5 @@ app.listen({ port: 3000 }, (err, address) => {
         console.error(err);
         process.exit(1);
     }
-    console.log("Fastify server running at:", address);
+    console.log("Local Fastify server running at:", address);
 });
