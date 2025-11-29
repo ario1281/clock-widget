@@ -1,7 +1,6 @@
 
 const xmlns = "http://www.w3.org/2000/svg";
 const width = 200;
-const height = 100;
 
 // 
 export class BaseClock {
@@ -69,29 +68,70 @@ export class AnalogClock extends BaseClock {
     }
 
     render() {
-        const hh = this.m_time.getHours();
-        const mm = this.m_time.getMinutes();
-        const ss = this.m_time.getSeconds();
+        const height = width;
 
         const r = 80;
         const cx = 100, cy = 100;
 
-        const secAngle = this.smooth ? (ss * 6) : Math.floor(ss) * 6;
-        const minAngle = this.smooth ? (mm * 6 + ss * 0.1) : mm * 6;
-        const hourAngle = this.smooth ? (hh % 12 * 30 + mm * 0.5) : (hh % 12 * 30);
+        const fff = this.m_time.getMilliseconds();
+        const ss = this.m_time.getSeconds();
+        const mm = this.m_time.getMinutes();
+        const HH = this.m_time.getHours();
 
         return `
-      <svg xmlns="${xmlns}" width="200" height="200">
-        <circle cx="${cx}" cy="${cy}" r="${r}" stroke="#333" stroke-width="4" fill="#1f1f1f"/>
+        <svg xmlns="${xmlns}" width="${width}" height="${height}">
+            <circle cx="100" cy="100" r="95" fill="#fdfdfd" stroke="#333" stroke-width="4"/>
+            <g stroke="#333" stroke-width="3">
+                <g id="tick"><line x1="100" y1="10" x2="100" y2="25"/></g>
+                <use href="#tick" transform="rotate(30 100 100)" />
+                <use href="#tick" transform="rotate(60 100 100)" />
+                <use href="#tick" transform="rotate(90 100 100)" />
+                <use href="#tick" transform="rotate(120 100 100)" />
+                <use href="#tick" transform="rotate(150 100 100)" />
+                <use href="#tick" transform="rotate(180 100 100)" />
+                <use href="#tick" transform="rotate(210 100 100)" />
+                <use href="#tick" transform="rotate(240 100 100)" />
+                <use href="#tick" transform="rotate(270 100 100)" />
+                <use href="#tick" transform="rotate(300 100 100)" />
+                <use href="#tick" transform="rotate(330 100 100)" />
+            </g>
 
-        ${this.hand(cx, cy, hourAngle, r * 0.5, 6)}
-        ${this.hand(cx, cy, minAngle, r * 0.7, 4)}
-        ${this.hand(cx, cy, secAngle, r * 0.9, 2, "#ff4d4d")}
+            <!-- Hour Hand -->
+            <line x1="100" y1="100" x2="100" y2="55"
+                    stroke="#000" stroke-width="6" stroke-linecap="round">
+                <animateTransform attributeName="transform"
+                type="rotate"
+                from="${HH} 100 100"
+                to="${HH + 360} 100 100"
+                dur="43200s"
+                repeatCount="indefinite"/>
+            </line>
 
-        ${this.showDate ? `<text x="50%" y="180" fill="#ccc" font-size="14" text-anchor="middle">${this.format_date()}</text>` : ""}
-      </svg>
-    `;
+            <!-- Minute Hand -->
+            <line x1="100" y1="100" x2="100" y2="35"
+                    stroke="#000" stroke-width="4" stroke-linecap="round">
+                <animateTransform attributeName="transform"
+                type="rotate"
+                from="${mm} 100 100"
+                to="${mm + 360} 100 100"
+                dur="3600s"
+                repeatCount="indefinite"/>
+            </line>
 
+            <!-- Second Hand -->
+            <line x1="100" y1="100" x2="100" y2="25"
+                    stroke="red" stroke-width="2" stroke-linecap="round">
+                <animateTransform attributeName="transform"
+                type="rotate"
+                from="${ss} 100 100"
+                to="${ss + 360} 100 100"
+                dur="60s"
+                repeatCount="indefinite"/>
+            </line>
+
+            <circle cx="100" cy="100" r="5" fill="#000"/>
+        </svg>
+        `;
     }
 }
 export class BinaryClock extends BaseClock {
