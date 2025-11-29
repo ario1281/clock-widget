@@ -5,7 +5,6 @@
   "license": "MIT",
   "scripts": {
     "dev": "vercel dev",
-    "build": "tsc",
     "start": "node dist/index.js"
   },
   "dependencies": {
