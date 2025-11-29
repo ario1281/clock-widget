@@ -5,10 +5,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "local": "vercel dev",
-    "start": "node api/index.js"
+    "dev": "node server.js",
+    "start": "vercel dev"
   },
   "dependencies": {
-    "@vercel/node": "*"
+    "fastify": "^4.29.1"
   }
 }
