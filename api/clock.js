@@ -40,9 +40,11 @@ export class DigitalClock extends BaseClock {
         return `
             <svg xmlns="${xmlns}" width="200" height="100">
                 <rect width="100%" height="100%" fill="#ififif"/>
-                <text x="50%" y="50%" font-size="30" fill="#00ffea" text-anchor="middle" dominant-baseline="middle">
-                    ${time}
-                </text>
+                <g>
+                    <text x="50%" y="50%" font-size="30" fill="#00ffea" text-anchor="middle" dominant-baseline="middle">
+                        ${time}
+                    </text>
+                </g>
                 ${this.showDate ? `<text x="50%" y="80%" font-size="14" fill="#ccc" text-anchor="middle">${this.format_date()}</text>` : ""}
             </svg>
     `;
@@ -65,55 +67,50 @@ export class AnalogClock extends BaseClock {
         return `
             <svg xmlns="${xmlns}" width="${width}" height="${height}">
                 <circle cx="100" cy="100" r="95" fill="#fdfdfd" stroke="#333" stroke-width="4"/>
-                <g stroke="#333" stroke-width="3">
-                    <g id="tick"><line x1="100" y1="10" x2="100" y2="25"/></g>
-                    <use href="#tick" transform="rotate(30 100 100)" />
-                    <use href="#tick" transform="rotate(60 100 100)" />
-                    <use href="#tick" transform="rotate(90 100 100)" />
-                    <use href="#tick" transform="rotate(120 100 100)" />
-                    <use href="#tick" transform="rotate(150 100 100)" />
-                    <use href="#tick" transform="rotate(180 100 100)" />
-                    <use href="#tick" transform="rotate(210 100 100)" />
-                    <use href="#tick" transform="rotate(240 100 100)" />
-                    <use href="#tick" transform="rotate(270 100 100)" />
-                    <use href="#tick" transform="rotate(300 100 100)" />
-                    <use href="#tick" transform="rotate(330 100 100)" />
+
+                <g>
+                    <g stroke="#333" stroke-width="3">
+                        <g id="tick"><line x1="100" y1="10" x2="100" y2="25"/></g>
+                        ${[...Array(11)].map((_, i) => `<use href="#tick" transform="rotate(${30*(i+1)} 100 100)" />`).join("\n")}
+                    </g>
+
+                    <!-- Hour Hand -->
+                    <line x1="100" y1="100" x2="100" y2="55"
+                            stroke="#000" stroke-width="6" stroke-linecap="round">
+                        <animateTransform attributeName="transform"
+                        type="rotate"
+                        from="${HH} 100 100"
+                        to="${HH + 360} 100 100"
+                        dur="43200s"
+                        repeatCount="indefinite"/>
+                    </line>
+
+                    <!-- Minute Hand -->
+                    <line x1="100" y1="100" x2="100" y2="35"
+                            stroke="#000" stroke-width="4" stroke-linecap="round">
+                        <animateTransform attributeName="transform"
+                        type="rotate"
+                        from="${mm} 100 100"
+                        to="${mm + 360} 100 100"
+                        dur="3600s"
+                        repeatCount="indefinite"/>
+                    </line>
+
+                    <!-- Second Hand -->
+                    <line x1="100" y1="100" x2="100" y2="25"
+                            stroke="red" stroke-width="2" stroke-linecap="round">
+                        <animateTransform attributeName="transform"
+                        type="rotate"
+                        from="${ss} 100 100"
+                        to="${ss + 360} 100 100"
+                        dur="60s"
+                        repeatCount="indefinite"/>
+                    </line>
+                    
+                    <circle cx="100" cy="100" r="5" fill="#000"/>
                 </g>
 
-                <!-- Hour Hand -->
-                <line x1="100" y1="100" x2="100" y2="55"
-                        stroke="#000" stroke-width="6" stroke-linecap="round">
-                    <animateTransform attributeName="transform"
-                    type="rotate"
-                    from="${HH} 100 100"
-                    to="${HH + 360} 100 100"
-                    dur="43200s"
-                    repeatCount="indefinite"/>
-                </line>
-
-                <!-- Minute Hand -->
-                <line x1="100" y1="100" x2="100" y2="35"
-                        stroke="#000" stroke-width="4" stroke-linecap="round">
-                    <animateTransform attributeName="transform"
-                    type="rotate"
-                    from="${mm} 100 100"
-                    to="${mm + 360} 100 100"
-                    dur="3600s"
-                    repeatCount="indefinite"/>
-                </line>
-
-                <!-- Second Hand -->
-                <line x1="100" y1="100" x2="100" y2="25"
-                        stroke="red" stroke-width="2" stroke-linecap="round">
-                    <animateTransform attributeName="transform"
-                    type="rotate"
-                    from="${ss} 100 100"
-                    to="${ss + 360} 100 100"
-                    dur="60s"
-                    repeatCount="indefinite"/>
-                </line>
-
-                <circle cx="100" cy="100" r="5" fill="#000"/>
+                ${this.showDate ? `<text x="50%" y="80%" font-size="14" fill="#ccc" text-anchor="middle">${this.format_date()}</text>` : ""}
             </svg>
         `;
     }
@@ -178,6 +175,7 @@ export class BinaryClock extends BaseClock {
                         <use href="#dot" x="0" y="60"><animate attributeName="fill-opacity" values="0;1" dur="10s" repeatCount="indefinite" begin="7.5s" /></use>
                     </g>
                 </g>
+                ${this.showDate ? `<text x="50%" y="80%" font-size="14" fill="#ccc" text-anchor="middle">${this.format_date()}</text>` : ""}
             </svg>
         `;
     }
