@@ -1,28 +1,37 @@
 import Fastify from "fastify";
-import { AnalogClock, BaseClock, BinaryClock, DigitalClock } from "./api/clock.js";
+import serverless from "serverless-http";
+import { ApiHandler } from "./ctrls/api_handler.js";
 
 const app = Fastify();
 
+async function SendFastifyResponse(reply, res) {
+    // get text
+    const text = await res.text();
+
+    Object.entries(res.headers).forEach(([key, value]) => {
+        reply.header(key, value);
+    });
+    reply.code(res.status).send(text);
+}
+
 app.get("/api", async (req, reply) => {
-    const { style = "analog", showDate = "false", smooth = "false" } = req.query;
-
-    let clock = new BaseClock(false);
-    if (style === "digital") clock = new DigitalClock(showDate === "true");
-    if (style === "binary")  clock = new BinaryClock(showDate === "true");
-    if (style === "analog")  clock = new AnalogClock(showDate === "true", smooth === "true");
-
-    const content = clock.render();
-
-    reply
-        .type("image/svg+xml")
-        .header("Cache-Control", "no-cache")
-        .send(content);
+    // return Response
+    const res = await ApiHandler(req.query);
+    await SendFastifyResponse(reply, res);
 });
 
-app.listen({ port: 3000 }, (err, address) => {
-    if (err) {
-        console.error(err);
-        process.exit(1);
-    }
-    console.log("Local Fastify server running at:", address);
-});
+// ====== Local debug ======
+if (process.env.NODE_ENV !== "vercel") {
+    app.listen({ port: 3000 }, (err, address) => {
+        if (err) {
+            console.error(err);
+            process.exit(1);
+        }
+        console.log("Local Fastify server running at:", address);
+    });
+}
+
+// ====== Vercel serverless ======
+export default serverless(app);
+
+// end of server.js
