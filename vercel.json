@@ -1,9 +1,5 @@
 {
-  "functions": {
-    "server.js": {
-      "runtime": "@vercel/node@24.x"
-    }
-  },
+  "version": 2,
   "routes": [
     { "src": "/api", "dest": "/server.js" }
   ]
