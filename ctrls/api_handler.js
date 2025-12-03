@@ -10,9 +10,9 @@ export async function ApiHandler(query) {
     const { style = "analog", showDate = "false", smooth = "false" } = query;
 
     let clock = new BaseClock(false);
-    if (style === "digital") clock = new DigitalClock(showDate === "true");
-    if (style === "binary")  clock = new BinaryClock(showDate === "true");
-    if (style === "analog")  clock = new AnalogClock(showDate === "true", smooth === "true");
+    if (style === "digital") { clock = new DigitalClock(showDate); }
+    if (style === "binary") { clock = new BinaryClock(showDate); }
+    if (style === "analog") { clock = new AnalogClock(showDate, smooth); }
 
     const content = clock.render();
 
