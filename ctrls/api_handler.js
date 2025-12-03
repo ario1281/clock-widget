@@ -7,12 +7,12 @@ export const apiHeaders = new Headers({
 
 export async function ApiHandler(query) {
   try {
-    const { style = "analog", showDate = "false", smooth = "false" } = query;
+    const { style = "analog", date = "false", smooth = "false" } = query;
 
     let clock = new BaseClock(false);
-    if (style === "digital") { clock = new DigitalClock(showDate); }
-    if (style === "binary") { clock = new BinaryClock(showDate); }
-    if (style === "analog") { clock = new AnalogClock(showDate, smooth); }
+    if (style === "digital") { clock = new DigitalClock(date); }
+    if (style === "binary") { clock = new BinaryClock(date); }
+    if (style === "analog") { clock = new AnalogClock(date, smooth); }
 
     const content = clock.render();
 
