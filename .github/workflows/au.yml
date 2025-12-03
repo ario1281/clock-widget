@@ -20,7 +20,7 @@ jobs:
 
       - name: Run update script
         run: |
-          node update_widget.js
+          node server.js
 
       - name: Commit and push changes
         run: |
