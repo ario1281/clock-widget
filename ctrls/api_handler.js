@@ -2,7 +2,7 @@ import { AnalogClock, BaseClock, BinaryClock, DigitalClock } from "../helpers/cl
 
 export const apiHeaders = new Headers({
   "Content-Type": "image/svg+xml",
-  "Cache-Control": "Cache-Control", "no-cache",
+  "Cache-Control": "no-cache、no-store",
 });
 
 export async function ApiHandler(query) {
